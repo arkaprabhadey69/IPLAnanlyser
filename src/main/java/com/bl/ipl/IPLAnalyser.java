@@ -38,5 +38,38 @@ public class IPLAnalyser {
 
     }
 
+    public String getPlayersWithTopAverages() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBattingAvg.json")) {
+            if (IPLCSVList == null || IPLCSVList.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLRuns> censusComparator = Comparator.comparing(census -> census.avg);
+            this.descendingSort(censusComparator);
+            String json = new Gson().toJson(IPLCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
+
+    private void descendingSort(Comparator<IPLRuns> iplComparator) {
+        for (int i = 0; i < IPLCSVList.size() - 1; i++) {
+            for (int j = 0; j < IPLCSVList.size() - i - 1; j++) {
+                IPLRuns ipl1 = IPLCSVList.get(j);
+                IPLRuns ipl2 = IPLCSVList.get(j + 1);
+                if (iplComparator.compare(ipl1, ipl2) < 0) {
+                    IPLCSVList.set(j, ipl2);
+                    IPLCSVList.set(j + 1, ipl1);
+                }
+            }
+        }
+    }
+
 
 }
