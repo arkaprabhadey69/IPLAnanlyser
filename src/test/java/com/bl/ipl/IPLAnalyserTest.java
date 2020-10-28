@@ -34,5 +34,18 @@ public class IPLAnalyserTest {
 
         }
     }
+    @Test
+    public void givenDataShouldReturnBatsmanWithHighestSR() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+            String sortCensusData = iPLAnalyser.getPlayersWithTopSR();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortCensusData, IPLRuns[].class);
+            Assert.assertEquals("Ishant Sharma", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
 
 }
