@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bl.ipl.IPLAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-28T05:32:04" hostname="LAPTOP-JP0FR8LN" time="0.468">
+  <properties/>
+  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="com.bl.ipl.IPLAnalyserTest" time="0.468"/>
+  <system-out><![CDATA[101
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
