@@ -115,6 +115,25 @@ public class IPLAnalyser {
 
 
     }
+    public String getPlayersWithTopSRandAverage() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBattingSRandAvg.json")) {
+            if (IPLCSVList == null || IPLCSVList.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getAvg).thenComparing(ipl->ipl.strikeRate);
+            this.descendingSort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
 
     private void descendingSort(Comparator<IPLRuns> iplComparator) {
         for (int i = 0; i < IPLCSVList.size() - 1; i++) {
