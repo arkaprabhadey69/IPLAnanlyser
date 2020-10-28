@@ -80,8 +80,20 @@ public class IPLAnalyserTest {
             iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
             String sortedIPLData = iPLAnalyser.getPlayersWithTopSRandAverage();
             IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
-            System.out.println(iplRuns[0].player);
             Assert.assertEquals("MS Dhoni", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @Test
+    public void givenDataShouldReturnBatsmanWithHighestAvgAndRuns() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTopRunsAndAverage();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
+            Assert.assertEquals("David Warner", iplRuns[0].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
