@@ -60,5 +60,19 @@ public class IPLAnalyserTest {
 
         }
     }
+    @Test
+    public void givenDataShouldReturnBatsmanWithHighestBoundaryAndSR() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTopSRandBoundary();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
+            Assert.assertEquals("Andre Russell", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 
 }
