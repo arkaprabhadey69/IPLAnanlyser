@@ -77,6 +77,25 @@ public class IPLAnalyser {
 
 
     }
+    public String getPlayersWithTopSRandBoundary() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBattingSRandBoundary.json")) {
+            if (IPLCSVList == null || IPLCSVList.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getSixes).thenComparing(ipl->ipl.fours).thenComparing(census -> census.strikeRate);
+            this.descendingSort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
     public String getPlayersWithTop6and4() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBattingBoundary.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
