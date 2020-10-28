@@ -26,8 +26,8 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iPLAnalyser = new IPLAnalyser();
             iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
-            String sortCensusData = iPLAnalyser.getPlayersWithTopAverages();
-            IPLRuns[] iplRuns = new Gson().fromJson(sortCensusData, IPLRuns[].class);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTopAverages();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
             Assert.assertEquals("MS Dhoni", iplRuns[0].player);
         } catch (IPLException e) {
             e.printStackTrace();
@@ -39,9 +39,22 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iPLAnalyser = new IPLAnalyser();
             iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
-            String sortCensusData = iPLAnalyser.getPlayersWithTopSR();
-            IPLRuns[] iplRuns = new Gson().fromJson(sortCensusData, IPLRuns[].class);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTopSR();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
             Assert.assertEquals("Ishant Sharma", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @Test
+    public void givenDataShouldReturnBatsmanWithHighestBoundary() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTop6and4();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
+            Assert.assertEquals("Andre Russell", iplRuns[0].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
