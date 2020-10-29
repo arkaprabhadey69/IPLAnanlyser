@@ -104,6 +104,19 @@ public class IPLAnalyserTest {
 
         }
     }
+    @Test
+    public void givenDataShouldReturnBatsmanWithHighestHundreds() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getPlayersWithTopHundreds();
+            IPLRuns[] iplRuns = new Gson().fromJson(sortedIPLData, IPLRuns[].class);
+            Assert.assertEquals("David Warner", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
 
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords2() {
@@ -154,6 +167,46 @@ public class IPLAnalyserTest {
             String sortedIPLData = iPLAnalyser.getBowlersWithTopEcon();
             IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
             Assert.assertEquals("Shivam Dube", iplRuns[0].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @Test
+    public void givenDataShouldReturnBowlerWithHighest4w() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getBowlersWithTopSRAnd4w();
+            IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
+            Assert.assertEquals("Lasith Malinga", iplRuns[iplRuns.length-1].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @Test
+    public void givenDataShouldReturnBowlerWithBestAvgAndSR() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getBowlersWithTopSRAndAvg();
+            IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
+            int index=iPLAnalyser.getPlayerIndex(iplRuns);
+           Assert.assertEquals("Anukul Roy", iplRuns[index].player);
+        } catch (IPLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @Test
+    public void givenDataShouldReturnBowlerWithBestWickets() {
+        try {
+            IPLAnalyser iPLAnalyser = new IPLAnalyser();
+            iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
+            String sortedIPLData = iPLAnalyser.getBowlersWithTopWickets();
+            IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
+            Assert.assertEquals("Imran Tahir", iplRuns[iplRuns.length-1].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
