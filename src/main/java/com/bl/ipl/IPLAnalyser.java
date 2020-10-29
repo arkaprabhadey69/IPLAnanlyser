@@ -168,6 +168,25 @@ public class IPLAnalyser {
 
 
     }
+    public String getPlayersWithTopHundreds() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBattingMaxHundreds.json")) {
+            if (IPLCSVList == null || IPLCSVList.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getHundreds).thenComparing(ipl->ipl.avg);
+            this.descendingSort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
 
     public String getBowlersWithTopAverage() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestAvg.json")) {
@@ -226,6 +245,64 @@ public class IPLAnalyser {
 
 
     }
+    public String getBowlersWithTopSRAnd4w() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestSRWithWickets.json")) {
+            if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLWickets> iplComparator = Comparator.comparing(IPLWickets::getFourWicket).thenComparing(IPLWickets::getFiveWicket).thenComparing(iplWickets -> iplWickets.strikeRate);
+            this.sort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList2);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList2, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
+    public String getBowlersWithTopSRAndAvg() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestSRandAvg.json")) {
+            if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLWickets> iplComparator = Comparator.comparing(IPLWickets::getAvg).thenComparing(iplWickets -> iplWickets.strikeRate);
+            this.sort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList2);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList2, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
+    public String getBowlersWithTopWickets() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingMostWickets.json")) {
+            if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLWickets> iplComparator = Comparator.comparing(IPLWickets::getWickets).thenComparing(IPLWickets::getAvg);
+            this.sort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList2);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList2, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
+
 
     private void descendingSort(Comparator<IPLRuns> iplComparator) {
         for (int i = 0; i < IPLCSVList.size() - 1; i++) {
