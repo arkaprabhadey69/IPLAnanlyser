@@ -173,7 +173,7 @@ public class IPLAnalyserTest {
         }
     }
     @Test
-    public void givenDataShouldReturnBowlerWithHighest4w() {
+    public void givenDataShouldReturnBowlerWithHighest4wAnd5w() {
         try {
             IPLAnalyser iPLAnalyser = new IPLAnalyser();
             iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
@@ -211,6 +211,18 @@ public class IPLAnalyserTest {
             e.printStackTrace();
 
         }
+    }
+    @Test
+    public void givenIPLDataFindCricketerWithBestBowlingAndBattingAverage() throws IPLException {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
+        String sorted = iplAnalyser.getBowlersWithTopAverage();
+        IPLWickets[] wickets = new Gson().fromJson(sorted, IPLWickets[].class);
+        iplAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+        String sortedBat = iplAnalyser.getPlayersWithTopAverages();
+        IPLRuns[] average = new Gson().fromJson(sortedBat, IPLRuns[].class);
+        String bestAvg=iplAnalyser.getBestAvg(average,wickets);
+        Assert.assertEquals("Sherfane Rutherford", bestAvg);
     }
 
 
