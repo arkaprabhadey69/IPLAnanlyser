@@ -104,6 +104,7 @@ public class IPLAnalyserTest {
 
         }
     }
+
     @Test
     public void givenDataShouldReturnBatsmanWithHighestHundreds() {
         try {
@@ -137,7 +138,7 @@ public class IPLAnalyserTest {
             iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
             String sortedIPLData = iPLAnalyser.getBowlersWithTopAverage();
             IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
-            int index=iPLAnalyser.getPlayerIndex2(iplRuns);
+            int index = iPLAnalyser.getPlayerIndex2(iplRuns);
             Assert.assertEquals("Anukul Roy", iplRuns[index].player);
         } catch (IPLException e) {
             e.printStackTrace();
@@ -159,6 +160,7 @@ public class IPLAnalyserTest {
 
         }
     }
+
     @Test
     public void givenDataShouldReturnBowlerWithLowestEconomy() {
         try {
@@ -172,6 +174,7 @@ public class IPLAnalyserTest {
 
         }
     }
+
     @Test
     public void givenDataShouldReturnBowlerWithHighest4wAnd5w() {
         try {
@@ -179,12 +182,13 @@ public class IPLAnalyserTest {
             iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
             String sortedIPLData = iPLAnalyser.getBowlersWithTopSRAnd4w();
             IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
-            Assert.assertEquals("Lasith Malinga", iplRuns[iplRuns.length-1].player);
+            Assert.assertEquals("Lasith Malinga", iplRuns[iplRuns.length - 1].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
         }
     }
+
     @Test
     public void givenDataShouldReturnBowlerWithBestAvgAndSR() {
         try {
@@ -192,13 +196,14 @@ public class IPLAnalyserTest {
             iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
             String sortedIPLData = iPLAnalyser.getBowlersWithTopSRAndAvg();
             IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
-            int index=iPLAnalyser.getPlayerIndex(iplRuns);
-           Assert.assertEquals("Anukul Roy", iplRuns[index].player);
+            int index = iPLAnalyser.getPlayerIndex(iplRuns);
+            Assert.assertEquals("Anukul Roy", iplRuns[index].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
         }
     }
+
     @Test
     public void givenDataShouldReturnBowlerWithBestWickets() {
         try {
@@ -206,12 +211,13 @@ public class IPLAnalyserTest {
             iPLAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
             String sortedIPLData = iPLAnalyser.getBowlersWithTopWickets();
             IPLWickets[] iplRuns = new Gson().fromJson(sortedIPLData, IPLWickets[].class);
-            Assert.assertEquals("Imran Tahir", iplRuns[iplRuns.length-1].player);
+            Assert.assertEquals("Imran Tahir", iplRuns[iplRuns.length - 1].player);
         } catch (IPLException e) {
             e.printStackTrace();
 
         }
     }
+
     @Test
     public void givenIPLDataFindCricketerWithBestBowlingAndBattingAverage() throws IPLException {
         IPLAnalyser iplAnalyser = new IPLAnalyser();
@@ -221,20 +227,38 @@ public class IPLAnalyserTest {
         iplAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
         String sortedBat = iplAnalyser.getPlayersWithTopAverages();
         IPLRuns[] average = new Gson().fromJson(sortedBat, IPLRuns[].class);
-        String bestAvg=iplAnalyser.getBestAvg(average,wickets);
+        String bestAvg = iplAnalyser.getBestAvg(average, wickets);
         Assert.assertEquals("Sherfane Rutherford", bestAvg);
     }
+
     @Test
     public void givenIPLDataFindBestAllRounders() throws IPLException {
-        IPLAnalyser iplAnalyser=new IPLAnalyser();
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
         iplAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
-        String sorted=iplAnalyser.getBowlersWithTopWickets();
-        IPLWickets[] wickets=new Gson().fromJson(sorted, IPLWickets[].class);
+        String sorted = iplAnalyser.getBowlersWithTopWickets();
+        IPLWickets[] wickets = new Gson().fromJson(sorted, IPLWickets[].class);
         iplAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
-        String sortedBat=iplAnalyser.getPlayersWithTopRunsAndAverage();
-        IPLRuns[] runs=new Gson().fromJson(sortedBat, IPLRuns[].class);
-        String bestAllRounder=iplAnalyser.getBestAllRounder(runs,wickets);
+        String sortedBat = iplAnalyser.getPlayersWithTopRunsAndAverage();
+        IPLRuns[] runs = new Gson().fromJson(sortedBat, IPLRuns[].class);
+        String bestAllRounder = iplAnalyser.getBestAllRounder(runs, wickets);
         Assert.assertEquals("Andre Russell", bestAllRounder);
+    }
+
+    @Test
+    public void givenIPLDataFindBatsmanWithZeroMilestonesButWithBestAverages() throws IPLException {
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        iplAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+        String sorted = iplAnalyser.getPlayersWithTopHundredsorFifties();
+        IPLRuns[] runs = new Gson().fromJson(sorted, IPLRuns[].class);
+        String sortedBat = iplAnalyser.getPlayersWithTopAverages();
+        IPLRuns[] average = new Gson().fromJson(sortedBat, IPLRuns[].class);
+
+        for (int i = 0; i < runs.length; i++) {
+            if (runs[runs.length - 1 - i].player.equals(average[i].player)) {
+                Assert.assertEquals("Robin Uthappa", average[i].player);
+                break;
+            }
+        }
     }
 
 
