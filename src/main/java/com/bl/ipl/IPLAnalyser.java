@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
     List<IPLRuns> IPLCSVList = null;
-    List<IPLWickets> IPLCSVList2=null;
+    List<IPLWickets> IPLCSVList2 = null;
 
     public int loadIPLData(String csvFilePath) throws IPLException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
@@ -38,6 +38,7 @@ public class IPLAnalyser {
         }
 
     }
+
     public int loadIPLDataWkts(String csvFilePath) throws IPLException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             IPLCSVList2 = CSVBuilderFactory.createCSVBuilder().getCSVFList(reader, IPLWickets.class);
@@ -92,12 +93,13 @@ public class IPLAnalyser {
 
 
     }
+
     public String getPlayersWithTopSRandBoundary() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBattingSRandBoundary.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
                 throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
             }
-            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getSixes).thenComparing(ipl->ipl.fours).thenComparing(census -> census.strikeRate);
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getSixes).thenComparing(ipl -> ipl.fours).thenComparing(census -> census.strikeRate);
             this.descendingSort(iplComparator);
             String json = new Gson().toJson(IPLCSVList);
             Gson gson = new GsonBuilder().create();
@@ -111,12 +113,13 @@ public class IPLAnalyser {
 
 
     }
+
     public String getPlayersWithTop6and4() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBattingBoundary.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
                 throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
             }
-            Comparator<IPLRuns> iplComparator = Comparator.comparing(census -> census.fours+census.sixes);
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(census -> census.fours + census.sixes);
             this.descendingSort(iplComparator);
             String json = new Gson().toJson(IPLCSVList);
             Gson gson = new GsonBuilder().create();
@@ -130,12 +133,13 @@ public class IPLAnalyser {
 
 
     }
+
     public String getPlayersWithTopSRandAverage() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingAvg.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
                 throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
             }
-            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getAvg).thenComparing(ipl->ipl.strikeRate);
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getAvg).thenComparing(ipl -> ipl.strikeRate);
             this.descendingSort(iplComparator);
             String json = new Gson().toJson(IPLCSVList);
             Gson gson = new GsonBuilder().create();
@@ -149,12 +153,13 @@ public class IPLAnalyser {
 
 
     }
+
     public String getPlayersWithTopRunsAndAverage() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBattingMaxRuns.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
                 throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
             }
-            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getRuns).thenComparing(ipl->ipl.avg);
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getRuns).thenComparing(ipl -> ipl.avg);
             this.descendingSort(iplComparator);
             String json = new Gson().toJson(IPLCSVList);
             Gson gson = new GsonBuilder().create();
@@ -168,12 +173,13 @@ public class IPLAnalyser {
 
 
     }
+
     public String getPlayersWithTopHundreds() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBattingMaxHundreds.json")) {
             if (IPLCSVList == null || IPLCSVList.size() == 0) {
                 throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
             }
-            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getHundreds).thenComparing(ipl->ipl.avg);
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getHundreds).thenComparing(ipl -> ipl.avg);
             this.descendingSort(iplComparator);
             String json = new Gson().toJson(IPLCSVList);
             Gson gson = new GsonBuilder().create();
@@ -207,6 +213,7 @@ public class IPLAnalyser {
 
 
     }
+
     public String getBowlersWithTopSR() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestSR.json")) {
             if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
@@ -226,6 +233,7 @@ public class IPLAnalyser {
 
 
     }
+
     public String getBowlersWithTopEcon() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestEconomy.json")) {
             if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
@@ -245,6 +253,7 @@ public class IPLAnalyser {
 
 
     }
+
     public String getBowlersWithTopSRAnd4w() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestSRWithWickets.json")) {
             if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
@@ -264,6 +273,7 @@ public class IPLAnalyser {
 
 
     }
+
     public String getBowlersWithTopSRAndAvg() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestSRandAvg.json")) {
             if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
@@ -283,6 +293,7 @@ public class IPLAnalyser {
 
 
     }
+
     public String getBowlersWithTopWickets() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingMostWickets.json")) {
             if (IPLCSVList2 == null || IPLCSVList2.size() == 0) {
@@ -316,6 +327,7 @@ public class IPLAnalyser {
             }
         }
     }
+
     private void sort(Comparator<IPLWickets> iplComparator) {
         for (int i = 0; i < IPLCSVList2.size() - 1; i++) {
             for (int j = 0; j < IPLCSVList2.size() - i - 1; j++) {
@@ -328,9 +340,10 @@ public class IPLAnalyser {
             }
         }
     }
-    public int getPlayerIndex(IPLWickets[] iplWickets){
-        for(int i=0;i< iplWickets.length;i++){
-            if(iplWickets[i].strikeRate!=0){
+
+    public int getPlayerIndex(IPLWickets[] iplWickets) {
+        for (int i = 0; i < iplWickets.length; i++) {
+            if (iplWickets[i].strikeRate != 0) {
                 System.out.println(iplWickets[i].player);
                 return i;
             }
@@ -338,9 +351,10 @@ public class IPLAnalyser {
         return 1;
 
     }
-    public int getPlayerIndex2(IPLWickets[] iplWickets){
-        for(int i=0;i< iplWickets.length;i++){
-            if(iplWickets[i].avg!=0){
+
+    public int getPlayerIndex2(IPLWickets[] iplWickets) {
+        for (int i = 0; i < iplWickets.length; i++) {
+            if (iplWickets[i].avg != 0) {
                 System.out.println(iplWickets[i].player);
                 return i;
             }
@@ -348,17 +362,27 @@ public class IPLAnalyser {
         return 1;
 
     }
-    public String getBestAvg(IPLRuns[] average, IPLWickets[] wickets){
+
+    public String getBestAvg(IPLRuns[] average, IPLWickets[] wickets) {
         for (int i = 0; i < average.length; i++) {
             if (average[i].player.equals(wickets[13 + i].player)) {
-//                Assert.assertEquals("Sherfane Rutherford", average[i].player);
-//                System.out.println(average[i].player);
                 return average[i].player;
-                //break;
             }
         }
         return null;
     }
 
+    public String getBestAllRounder(IPLRuns[] runs, IPLWickets[] wickets) {
 
+        for (int i = 0; i < runs.length; i++) {
+            for (int j = wickets.length - 1; j >= 0; j--)
+                if (runs[i].player.equals(wickets[j].player)) {
+                    return runs[i].player;
+                }
+        }
+        return null;
+    }
 }
+
+
+
