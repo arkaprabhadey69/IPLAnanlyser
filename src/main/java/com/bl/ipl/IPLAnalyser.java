@@ -348,6 +348,17 @@ public class IPLAnalyser {
         return 1;
 
     }
+    public String getBestAvg(IPLRuns[] average, IPLWickets[] wickets){
+        for (int i = 0; i < average.length; i++) {
+            if (average[i].player.equals(wickets[13 + i].player)) {
+//                Assert.assertEquals("Sherfane Rutherford", average[i].player);
+//                System.out.println(average[i].player);
+                return average[i].player;
+                //break;
+            }
+        }
+        return null;
+    }
 
 
 }
