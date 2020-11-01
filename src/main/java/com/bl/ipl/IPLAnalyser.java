@@ -193,6 +193,25 @@ public class IPLAnalyser {
 
 
     }
+    public String getPlayersWithTopHundredsorFifties() throws IPLException {
+        try (Writer writer = new FileWriter("./src/test/resources/IPLBattingMaxHundredsFifties.json")) {
+            if (IPLCSVList == null || IPLCSVList.size() == 0) {
+                throw new IPLException("No data", IPLException.ExceptionType.NO_DATA);
+            }
+            Comparator<IPLRuns> iplComparator = Comparator.comparing(IPLRuns::getHundreds).thenComparing(ipl -> ipl.fifties);
+            this.descendingSort(iplComparator);
+            String json = new Gson().toJson(IPLCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(IPLCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new IPLException(e.getMessage(),
+                    IPLException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+
+
+    }
 
     public String getBowlersWithTopAverage() throws IPLException {
         try (Writer writer = new FileWriter("./src/test/resources/IPLBowlingBestAvg.json")) {
@@ -379,6 +398,16 @@ public class IPLAnalyser {
                 if (runs[i].player.equals(wickets[j].player)) {
                     return runs[i].player;
                 }
+        }
+        return null;
+    }
+    public String getBestAvgWithZeroCenturyFifty(IPLRuns[] runs, IPLRuns[] average){
+        for(int i=0;i<runs.length;i++)
+        {
+            if(runs[runs.length-1-i].player.equals(average[i].player))
+            {
+                return  average[i].player;
+            }
         }
         return null;
     }
