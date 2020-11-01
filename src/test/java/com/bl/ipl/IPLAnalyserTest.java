@@ -224,6 +224,18 @@ public class IPLAnalyserTest {
         String bestAvg=iplAnalyser.getBestAvg(average,wickets);
         Assert.assertEquals("Sherfane Rutherford", bestAvg);
     }
+    @Test
+    public void givenIPLDataFindBestAllRounders() throws IPLException {
+        IPLAnalyser iplAnalyser=new IPLAnalyser();
+        iplAnalyser.loadIPLDataWkts(IPL_WKTS_CSV_FILE_PATH);
+        String sorted=iplAnalyser.getBowlersWithTopWickets();
+        IPLWickets[] wickets=new Gson().fromJson(sorted, IPLWickets[].class);
+        iplAnalyser.loadIPLData(IPL_CSV_FILE_PATH);
+        String sortedBat=iplAnalyser.getPlayersWithTopRunsAndAverage();
+        IPLRuns[] runs=new Gson().fromJson(sortedBat, IPLRuns[].class);
+        String bestAllRounder=iplAnalyser.getBestAllRounder(runs,wickets);
+        Assert.assertEquals("Andre Russell", bestAllRounder);
+    }
 
 
 }
