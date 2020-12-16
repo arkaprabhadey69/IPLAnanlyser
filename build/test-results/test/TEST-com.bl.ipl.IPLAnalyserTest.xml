@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bl.ipl.IPLAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-28T05:32:04" hostname="LAPTOP-JP0FR8LN" time="0.468">
+<testsuite name="com.bl.ipl.IPLAnalyserTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2020-11-29T15:33:32" hostname="LAPTOP-JP0FR8LN" time="1.995">
   <properties/>
-  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="com.bl.ipl.IPLAnalyserTest" time="0.468"/>
-  <system-out><![CDATA[101
+  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="com.bl.ipl.IPLAnalyserTest" time="0.277"/>
+  <testcase name="givenDataShouldReturnBowlerWithLowestSR" classname="com.bl.ipl.IPLAnalyserTest" time="0.2"/>
+  <testcase name="givenIPLDataFindBatsmanWithZeroMilestonesButWithBestAverages" classname="com.bl.ipl.IPLAnalyserTest" time="0.143"/>
+  <testcase name="givenDataShouldReturnBowlerWithHighest4wAnd5w" classname="com.bl.ipl.IPLAnalyserTest" time="0.104"/>
+  <testcase name="givenDataShouldReturnBowlerWithLowestEconomy" classname="com.bl.ipl.IPLAnalyserTest" time="0.071"/>
+  <testcase name="givenDataShouldReturnBowlerWithBestAvgAndSR" classname="com.bl.ipl.IPLAnalyserTest" time="0.161"/>
+  <testcase name="givenIPLDataFindCricketerWithBestBowlingAndBattingAverage" classname="com.bl.ipl.IPLAnalyserTest" time="0.246"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestHundreds" classname="com.bl.ipl.IPLAnalyserTest" time="0.078"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestBoundaryAndSR" classname="com.bl.ipl.IPLAnalyserTest" time="0.092"/>
+  <testcase name="givenDataShouldReturnBowlerWithBestWickets" classname="com.bl.ipl.IPLAnalyserTest" time="0.062"/>
+  <testcase name="givenIPLDataFindBestAllRounders" classname="com.bl.ipl.IPLAnalyserTest" time="0.158"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestAvgAndSR" classname="com.bl.ipl.IPLAnalyserTest" time="0.054"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestAverage" classname="com.bl.ipl.IPLAnalyserTest" time="0.058"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestBoundary" classname="com.bl.ipl.IPLAnalyserTest" time="0.074"/>
+  <testcase name="givenDataShouldReturnBowlerWithLowestAvg" classname="com.bl.ipl.IPLAnalyserTest" time="0.047"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestSR" classname="com.bl.ipl.IPLAnalyserTest" time="0.061"/>
+  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords2" classname="com.bl.ipl.IPLAnalyserTest" time="0.05"/>
+  <testcase name="givenDataShouldReturnBatsmanWithHighestAvgAndRuns" classname="com.bl.ipl.IPLAnalyserTest" time="0.051"/>
+  <system-out><![CDATA[Alzarri Joseph
+Anukul Roy
+Anukul Roy
+99
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
